@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ducksnipe Games</title>
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- HEADER CON NAVEGACIÓN -->
+    <header class="bg-dark py-2 border-bottom border-primary">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-6 col-md-4">
+                    <div class="d-flex align-items-center gap-2">
+                        <img src="img/placeholder.jpeg" alt="Logo" class="rounded-circle" style="width:45px;height:45px;object-fit:cover;">
+                        <span class="text-white fs-3 fw-bold">Ducksnipe <span class="text-primary">Games</span></span>
+                    </div>
+                </div>
+                <div class="col-6 col-md-8">
+                    <nav class="navbar navbar-expand-md navbar-dark">
+                        <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="nav">
+                            <ul class="navbar-nav ms-auto gap-2">
+                                <li class="nav-item"><a class="nav-link active" href="#catalogo"><i class="bi bi-grid"></i> Catálogo</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#carrito"><i class="bi bi-cart"></i> Carrito <span class="badge bg-primary" id="contador-carrito">0</span></a></li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN -->
+    <main class="container py-3">
+        <!-- FILTROS -->
+        <section class="bg-secondary bg-opacity-25 p-3 rounded-3 mb-3">
+            <div class="row g-2">
+                <div class="col-6 col-md-3">
+                    <select id="filtro-cat" class="form-select bg-dark text-light border-primary">
+                        <option value="">Todas</option>
+                        <option value="indies">Indies</option>
+                        <option value="gratis">Gratis</option>
+                        <option value="dlc">DLC</option>
+                        <option value="accion">Acción</option>
+                        <option value="aventura">Aventura</option>
+                    </select>
+                </div>
+                <div class="col-6 col-md-3">
+                    <select id="orden" class="form-select bg-dark text-light border-primary">
+                        <option value="nombre">Nombre</option>
+                        <option value="precio-asc">Precio ↑</option>
+                        <option value="precio-desc">Precio ↓</option>
+                    </select>
+                </div>
+                <div class="col-12 col-md-4">
+                    <input type="text" id="filtro-busqueda" class="form-control bg-dark text-light border-primary" placeholder="🔍 Buscar...">
+                </div>
+                <div class="col-12 col-md-2">
+                    <button id="btn-limpiar" class="btn btn-outline-primary w-100">Limpiar</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- GRID PRINCIPAL -->
+        <div class="row g-4">
+            <!-- CATÁLOGO -->
+            <div class="col-12 col-lg-8" id="seccion-catalogo">
+                <h4 class="text-light mb-3"><i class="bi bi-grid text-primary"></i> Catálogo</h4>
+                <div id="catalogo" class="row row-cols-1 row-cols-sm-2 row-cols-xl-3 g-3"></div>
+            </div>
+
+            <!-- CARRITO -->
+            <div class="col-12 col-lg-4" id="seccion-carrito">
+                <div id="panel-carrito" class="bg-dark bg-opacity-50 p-3 rounded-3 sticky-lg-top" style="top:20px;">
+                    <h5 class="text-light mb-2"><i class="bi bi-cart text-primary"></i> Carrito <span class="badge bg-primary float-end" id="contador-items">0</span></h5>
+                    <ul id="lista-carrito" class="list-unstyled mb-2" style="max-height:300px;overflow-y:auto;"></ul>
+                    <div class="d-flex justify-content-between border-top border-secondary pt-2">
+                        <span class="text-light fw-bold">Total:</span>
+                        <span id="total-final" class="text-primary fw-bold">S/0.00</span>
+                    </div>
+                    <div class="d-grid gap-2 mt-2">
+                        <button id="btn-ir-carrito" class="btn btn-primary btn-sm"><i class="bi bi-eye"></i> Ver carrito</button>
+                        <button id="btn-descuento" class="btn btn-success btn-sm"><i class="bi bi-percent"></i> Descuento 10%</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PANTALLA DE COMPRA -->
+        <div id="pantalla-compra" class="mt-3" style="display:none;">
+            <div class="bg-dark bg-opacity-75 p-3 rounded-3">
+                <h5 class="text-light"><i class="bi bi-bag-check text-success"></i> Resumen de compra</h5>
+                <div id="productos-compra" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-2 my-2"></div>
+                <div class="d-flex justify-content-between align-items-center border-top border-secondary pt-2">
+                    <h6 id="total-compra" class="text-primary m-0">Total: S/0.00</h6>
+                    <div class="d-flex gap-2">
+                        <button id="btn-volver" class="btn btn-secondary btn-sm"><i class="bi bi-arrow-left"></i> Volver</button>
+                        <button id="btn-comprar" class="btn btn-success btn-sm"><i class="bi bi-check"></i> Comprar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-dark text-secondary text-center py-3 mt-4 border-top border-secondary">
+        <small>© 2026 Ducksnipe Games</small>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
