@@ -12,7 +12,7 @@ const productos = [
     { id: 10, nombre: "Zelda TOTK", precio: 350, categoria: "aventura", imagen: "img/Zelda TOTK.avif" },
 ];
 
-const carrito = [];
+const carrito = JSON.parse(localStorage.getItem("carrito_ducksnipe")) || []; // Recuperar carrito del localStorage
 let descuento = false;
 
 // ===== FILTRADO =====
@@ -108,6 +108,7 @@ function actualizarTotal() {
 function actualizarCarrito() {
     mostrarCarrito();
     actualizarTotal();
+    localStorage.setItem("carrito_ducksnipe", JSON.stringify(carrito)); // Guardar carrito en localStorage
 }
 
 // ===== PANTALLA DE COMPRA =====
@@ -148,6 +149,7 @@ function comprar() {
     alert(`✅ Compra realizada!\nTotal: S/${calcularTotal().toFixed(2)}`);
     carrito.length = 0;
     descuento = false;
+    localStorage.removeItem("carrito_ducksnipe"); // Limpiar carrito del localStorage
     actualizarCarrito();
     volver();
 }
@@ -166,6 +168,56 @@ function limpiarFiltros() {
     document.getElementById("filtro-busqueda").value = "";
     document.getElementById("orden").value = "nombre";
     mostrarCatalogo();
+}
+
+// ===== PANTALLA DE LOGIN =====
+function mostrarPantallaLogin() {
+    document.getElementById("seccion-catalogo").style.display = "none";
+    document.getElementById("seccion-carrito").style.display = "none";
+    document.getElementById("pantalla-compra").style.display = "none";
+    document.getElementById("pantalla-login").style.display = "block";
+}
+
+//===== VOLVER DE LOGIN =====
+function volverDeLogin() {
+    document.getElementById("seccion-catalogo").style.display = "block";
+    document.getElementById("seccion-carrito").style.display = "block";
+    document.getElementById("pantalla-login").style.display = "none";
+}
+
+// ===== ALERTA DE MENSAJE DE PRÓXIMAMENTE =====
+function mensajeProximamente(opcion) {
+    alert(`ℹ️ La opción de iniciar con ${opcion} estará disponible en próximas actualizaciones.`);
+}
+// Función que evalúa y autocompleta el correo
+function procesarIngreso(event) {
+    // Si event existe, prevenimos cualquier comportamiento automático del navegador
+    if (event) event.preventDefault();
+
+    const inputCorreo = document.getElementById("usuario-email");
+    const inputPass = document.getElementById("usuario-pass");
+    
+    let textoCorreo = inputCorreo.value.replace(/\s+/g, '');
+    let textoPass = inputPass.value.trim();
+
+    // AQUÍ ESTÁ EL TRUCO: 
+    // Solo validamos si los campos están realmente vacíos al momento de presionar el botón.
+    // Si el usuario simplemente está navegando por la página, esta función ni siquiera se dispara.
+    if (textoCorreo === "" || textoPass === "") {
+        alert("❌ Faltan campos por completar.");
+        return;
+    }
+
+    // Autocompletado
+    if (!textoCorreo.includes("@")) {
+        textoCorreo = textoCorreo + "@gmail.com";
+        inputCorreo.value = textoCorreo;
+    }
+
+    let nombreLimpio = textoCorreo.split("@")[0];
+    
+    alert(`👋 ¡Bienvenido al sistema, ${nombreLimpio}!`);
+    volverDeLogin();
 }
 
 // ===== EVENTOS =====
