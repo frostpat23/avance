@@ -26,10 +26,14 @@
                             <span class="navbar-toggler-icon"></span>
                         </button>
                         <div class="collapse navbar-collapse" id="nav">
-                            <ul class="navbar-nav ms-auto gap-2">
+                            <ul class="navbar-nav ms-auto gap-2 align-items-center"> <!--agregado de align-items-center para que se centre y mande todo a la derecha-->
                                 <li class="nav-item"><a class="nav-link active" href="#catalogo"><i class="bi bi-grid"></i> Catálogo</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#carrito"><i class="bi bi-cart"></i> Carrito <span class="badge bg-primary" id="contador-carrito">0</span></a></li>
+                                <!-- cambio de href a onclick  con style cursor pointer para que esta funcion tenga accion al presionar click sobre ello-->
+                                 <li class="nav-item"><button class="btn btn-primary btn-sm px-3" onclick="mostrarPantallaLogin()"><i class="bi bi-person"></i> Iniciar Sesión</button> <!--login bloque/espacio-->
+        </li>
+                                <li class="nav-item"><a class="nav-link" onclick="verCarrito()" style="cursor:pointer;"><i class="bi bi-cart"></i> Carrito <span class="badge bg-primary" id="contador-carrito">0</span></a></li>
                             </ul>
+
                         </div>
                     </nav>
                 </div>
@@ -107,6 +111,40 @@
                 </div>
             </div>
         </div>
+
+        <!-- PANTALLA DE LOGIN nuevo punto agregado -->
+        <div id="pantalla-login" class="mt-3" style="display:none;">
+            <div class="bg-dark bg-opacity-75 p-4 rounded-3 mx-auto" style="max-width: 400px; border: 1px solid rgba(102,192,244,.15);">
+                <h4 class="text-light text-center mb-3"><i class="bi bi-person-circle"></i> Ingresar a Ducksnipe</h4>
+        
+                <div class="mb-3">
+                    <label class="text-light small mb-1">Usuario o Correo</label>
+                    <input type="text" id="usuario-email" class="form-control bg-dark text-light border-secondary" placeholder="ejemplo o correo@gmail.com">
+                </div>
+        
+                <div class="mb-3">
+                    <label class="text-light small mb-1">Contraseña</label>
+                    <input type="password" id="usuario-pass" class="form-control bg-dark text-light border-secondary" placeholder="******">
+                </div>
+        
+<button type="button" class="btn btn-primary w-100 mb-3 fw-bold" onclick="procesarIngreso(event)">Ingresar</button>        
+                <hr class="text-secondary">
+        
+                <div class="d-grid gap-2">
+                    <button type="button" class="btn btn-outline-light btn-sm text-start" onclick="mensajeProximamente('Google')">
+                        <i class="bi bi-google text-danger"></i> Iniciar con Google
+                </button>
+                <button type="button" class="btn btn-outline-light btn-sm text-start" onclick="mensajeProximamente('Otras opciones')">
+                    <i class="bi bi-three-dots"></i> Otras opciones...
+                </button>
+            </div>
+        </div>
+        
+        <div class="text-center mt-3">
+            <button type="button" class="btn btn-link btn-sm text-secondary decoration-none" onclick="volverDeLogin()">Volver al catálogo</button>
+        </div>
+    </div>
+</div>
     </main>
 
     <!-- FOOTER -->
