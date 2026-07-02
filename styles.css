@@ -70,6 +70,10 @@ body { background: var(--fondo); color: #fff; font-family: 'Segoe UI', Arial, sa
 .vacio { color: #8fa3b8; text-align: center; padding: 20px 0; }
 .sticky-lg-top { position: sticky; top: 20px; z-index: 100; }
 
+.pantalla{
+    transition: opacity 0.3s ease;
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 992px) {
     .sticky-lg-top { position: static; }

@@ -29,8 +29,7 @@
                             <ul class="navbar-nav ms-auto gap-2 align-items-center"> <!--agregado de align-items-center para que se centre y mande todo a la derecha-->
                                 <li class="nav-item"><a class="nav-link active" href="#catalogo"><i class="bi bi-grid"></i> Catálogo</a></li>
                                 <!-- cambio de href a onclick  con style cursor pointer para que esta funcion tenga accion al presionar click sobre ello-->
-                                 <li class="nav-item"><button class="btn btn-primary btn-sm px-3" onclick="mostrarPantallaLogin()"><i class="bi bi-person"></i> Iniciar Sesión</button> <!--login bloque/espacio-->
-        </li>
+                                 <li class="nav-item"><button class="btn btn-primary btn-sm px-3" onclick="mostrarPantallaLogin()"><i class="bi bi-person"></i> Iniciar Sesión</button> <!--login bloque/espacio--></li>
                                 <li class="nav-item"><a class="nav-link" onclick="verCarrito()" style="cursor:pointer;"><i class="bi bi-cart"></i> Carrito <span class="badge bg-primary" id="contador-carrito">0</span></a></li>
                             </ul>
 
@@ -86,6 +85,10 @@
                     <h5 class="text-light mb-2"><i class="bi bi-cart text-primary"></i> Carrito <span class="badge bg-primary float-end" id="contador-items">0</span></h5>
                     <ul id="lista-carrito" class="list-unstyled mb-2" style="max-height:300px;overflow-y:auto;"></ul>
                     <div class="d-flex justify-content-between border-top border-secondary pt-2">
+                        <span class="text-light fw-bold">Subtotal:</span>
+                        <span id="subtotal" class="text-primary fw-bold">S/0.00</span>
+                        <span class="text-light fw-bold">IGV (18%):</span>
+                        <span id="igv" class="text-primary fw-bold">S/0.00</span>
                         <span class="text-light fw-bold">Total:</span>
                         <span id="total-final" class="text-primary fw-bold">S/0.00</span>
                     </div>
@@ -104,6 +107,10 @@
                 <div id="productos-compra" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-2 my-2"></div>
                 <div class="d-flex justify-content-between align-items-center border-top border-secondary pt-2">
                     <h6 id="total-compra" class="text-primary m-0">Total: S/0.00</h6>
+                    <div class="text-end text-secondary mb-2">
+                    <div>Subtotal: <span id="subtotal-compra">S/0.00</span></div>
+                    <div>IGV (18%): <span id="igv-compra">S/0.00</span></div>
+                    </div>
                     <div class="d-flex gap-2">
                         <button id="btn-volver" class="btn btn-secondary btn-sm"><i class="bi bi-arrow-left"></i> Volver</button>
                         <button id="btn-comprar" class="btn btn-success btn-sm"><i class="bi bi-check"></i> Comprar</button>
@@ -142,6 +149,18 @@
         
         <div class="text-center mt-3">
             <button type="button" class="btn btn-link btn-sm text-secondary decoration-none" onclick="volverDeLogin()">Volver al catálogo</button>
+        </div>
+    </div>
+</div>
+
+<!-- Contenedor de Toasts reemplazo de alertas-->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="liveToast" class="toast align-items-center text-white bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body" id="toast-mensaje">
+                <!-- Aquí irá el mensaje -->
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
     </div>
 </div>

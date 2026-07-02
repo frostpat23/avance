@@ -99,6 +99,12 @@ function calcularTotal() {
 }
 
 function actualizarTotal() {
+    let totalBase = calcularTotal();
+    let subtotal = totalBase / 1.18; // Subtotal sin IGV
+    let igv = totalBase - subtotal; // IGV (18%)
+
+    document.getElementById("subtotal-display").textContent = `S/${subtotal.toFixed(2)}`;
+    document.getElementById("igv-display").textContent = `S/${igv.toFixed(2)}`;
     document.getElementById("total-final").textContent = `S/${calcularTotal().toFixed(2)}`;
     const items = carrito.reduce((a, p) => a + p.cantidad, 0);
     document.getElementById("contador-carrito").textContent = items;
@@ -135,6 +141,11 @@ function verCarrito() {
             </div>
         </div>
     `).join('');
+    const totalBase = calcularTotal();
+    const subtotal = totalBase / 1.18;
+    const igv = totalBase - subtotal;
+    document.getElementById("subtotal-compra").textContent = `S/${subtotal.toFixed(2)}`;
+    document.getElementById("igv-compra").textContent = `S/${igv.toFixed(2)}`;
     document.getElementById("total-compra").textContent = `Total: S/${calcularTotal().toFixed(2)}`;
 }
 
@@ -146,8 +157,7 @@ function volver() {
 
 function comprar() {
     if(!carrito.length) return alert("Carrito vacío");
-    alert(`✅ Compra realizada!\nTotal: S/${calcularTotal().toFixed(2)}`);
-    carrito.length = 0;
+    mostrarToast(`✅ Compra realizada con éxito. Total: S/${calcularTotal().toFixed(2)}`);    carrito.length = 0;
     descuento = false;
     localStorage.removeItem("carrito_ducksnipe"); // Limpiar carrito del localStorage
     actualizarCarrito();
@@ -159,7 +169,7 @@ function toggleDescuento() {
     descuento = !descuento;
     actualizarCarrito();
     document.getElementById("btn-descuento").textContent = descuento ? '❌ Quitar descuento' : '💸 Descuento 10%';
-    if(descuento) alert('✅ Descuento del 10% aplicado');
+    if(descuento) mostrarToast('✅ Descuento del 10% aplicado');
 }
 
 // ===== LIMPIAR FILTROS =====
@@ -216,8 +226,18 @@ function procesarIngreso(event) {
 
     let nombreLimpio = textoCorreo.split("@")[0];
     
-    alert(`👋 ¡Bienvenido al sistema, ${nombreLimpio}!`);
+    mostrarToast(`👋 ¡Bienvenido, ${nombreLimpio}!`);
     volverDeLogin();
+}
+
+function mostrarToast(mensaje) {
+    const toastElement = document.getElementById('liveToast');
+    const toastBody = document.getElementById('toast-mensaje');
+    
+    // Cambiamos el texto y mostramos el toast
+    toastBody.textContent = mensaje;
+    const toast = new bootstrap.Toast(toastElement);
+    toast.show();
 }
 
 // ===== EVENTOS =====
@@ -233,4 +253,3 @@ document.getElementById("btn-limpiar").addEventListener("click", limpiarFiltros)
 // ===== INICIO =====
 mostrarCatalogo();
 actualizarCarrito();
-console.log("✅ Ducksnipe Games - Listo!");
